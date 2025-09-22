@@ -1,6 +1,7 @@
+/* Reset and Base */
 * {
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -11,6 +12,7 @@ body,
   width: 100%;
 }
 
+/* Main Layout */
 main {
   height: 100%;
   width: 100%;
@@ -41,23 +43,82 @@ main .left {
   background-color: #0c0c0c;
 }
 
-main .left .review {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: rgb(219, 219, 255);
-  color: #000000;
-  padding: 0.5rem 2rem;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 0.7rem;
-}
+/* Removed old .review styles */
 
-
+/* Markdown Output */
 main .right {
   background-color: #343434;
   padding: 1rem 2rem;
   font-size: 1.5rem;
   overflow: auto;
+}
+
+/* Premium Layout Container */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  padding: 24px;
+  min-height: 100vh;
+  position: relative;
+}
+
+.left,
+.right {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Premium Review Button */
+.review-button-container {
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  z-index: 100;
+}
+
+.review-button {
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.review-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* Responsive Adjustments */
+/* Mobile Fix for Review Button */
+@media (max-width: 768px) {
+  .review-button-container {
+    position: fixed;
+    bottom: 72px; /* Just above footer */
+    left: 8px;
+    right: 8px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    z-index: 101;
+
+    padding: 50px;
+  }
+
+  .review-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  main {
+    padding-bottom: 140px; /* Give space for footer + button */
+  }
 }

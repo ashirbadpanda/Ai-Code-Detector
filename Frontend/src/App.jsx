@@ -1,33 +1,35 @@
-import { useState, useEffect } from 'react'
-import "prismjs/themes/prism-tomorrow.css"
-import Editor from "react-simple-code-editor"
-import prism from "prismjs"
-import Markdown from "react-markdown"
+import { useState, useEffect } from 'react';
+import "prismjs/themes/prism-tomorrow.css";
+import Editor from "react-simple-code-editor";
+import prism from "prismjs";
+import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
-import axios from 'axios'
-import './App.css'
+import axios from 'axios';
+import './App.css';
+import Footer from './Footer';
+import Header from './Header';
 
 function App() {
-  const [ count, setCount ] = useState(0)
-  const [ code, setCode ] = useState(` function sum() {
-  return 1 + 1
-}`)
-
-  const [ review, setReview ] = useState(``)
+  const [count, setCount] = useState(0);
+  const [code, setCode] = useState(`function sum() {
+  return 1 + 1;
+}`);
+  const [review, setReview] = useState(``);
 
   useEffect(() => {
-    prism.highlightAll()
-  }, [])
+    prism.highlightAll();
+  }, []);
 
   async function reviewCode() {
-    const response = await axios.post('https://ai-code-detector.onrender.com/ai/get-review', { code })
-    setReview(response.data)
+    const response = await axios.post('https://ai-code-detector.onrender.com/ai/get-review', { code });
+    setReview(response.data);
   }
 
   return (
     <>
-      <main>
+      <Header />
+      <main className="main-container">
         <div className="left">
           <div className="code">
             <Editor
@@ -45,22 +47,21 @@ function App() {
               }}
             />
           </div>
-          <div
-            onClick={reviewCode}
-            className="review">Review</div>
         </div>
         <div className="right">
-          <Markdown
-
-            rehypePlugins={[ rehypeHighlight ]}
-
-          >{review}</Markdown>
+          <Markdown rehypePlugins={[rehypeHighlight]}>
+            {review}
+          </Markdown>
+        </div>
+        <div className="review-button-container">
+          <button onClick={reviewCode} className="review-button">
+            Review
+          </button>
         </div>
       </main>
+      <Footer />
     </>
-  )
+  );
 }
 
-
-
-export default App
+export default App;
